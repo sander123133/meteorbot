@@ -2,11 +2,19 @@ package boebot_hardware;
 
 import TI.*;
 
-public class Motor {
+public  class Motor {
     private Servo sLinks;
     private Servo sRechts;
+    private static Motor instance_motor = null;
 
-    public Motor(){
+    public static Motor createMotor(){
+        if(instance_motor == null){
+            instance_motor = new Motor();
+        }
+        return  instance_motor;
+    }
+
+    private Motor(){
         sLinks = new Servo(13);
         sRechts = new Servo(12);
         sLinks.start();
