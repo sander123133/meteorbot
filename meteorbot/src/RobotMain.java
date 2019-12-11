@@ -1,23 +1,18 @@
-import TI.BoeBot;
+import Controller_package.RouteRijdenController;
+import TI.*;
 import boebot_hardware.Motor;
 
+import java.awt.*;
+
 public class RobotMain {
+    private static int backlight = 1;
 
     public static void main(String[] args) {
-        boolean state = true;
-        Motor motor = new Motor();
-        BoeBot.wait(5000);
-        while (true) {
-            for(int index = 0; index < 75; index++){
-                motor.rijden(index);
-                BoeBot.wait(50);
-            }
-            BoeBot.wait(750);
-
-            motor.naarLinks(5000);
-            motor.naarRechts(5000);
-            motor.stoppen();
-            BoeBot.wait(20000);
-        }
+        BoeBot.wait(10000);
+        Thread thread = new Thread(new RouteRijdenController());
+        thread.start();
     }
 }
+
+
+
