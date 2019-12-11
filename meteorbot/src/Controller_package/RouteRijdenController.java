@@ -8,6 +8,13 @@ public class RouteRijdenController implements Runnable {
     private Motor motor;
     private Lijnvolger links, midden, rechts;
     private int snelheid = 50;
+    boolean driving = true;
+    boolean draaien = false;
+    boolean intermission;
+
+    int cycle = 0;
+    int startturning = 0, startintermission = 0;
+
 
     public RouteRijdenController() {
         motor = new Motor();
@@ -19,46 +26,65 @@ public class RouteRijdenController implements Runnable {
 
     @Override
     public void run() {
-        motor.rijden(snelheid,snelheid);
-        boolean driving = true;
-        while(driving){
-            boolean linkselezer = links.lijndetected();
-            boolean middellezer = midden.lijndetected();
-            boolean rechtselezer = rechts.lijndetected();
-            if(linkselezer && middellezer && rechtselezer){
-                driving = false;
+        motor.rijden(50,50);
+
+        while(true){
+            if(driving && (cycle%25 == 0)){
+
+                boolean linkselezer = links.lijndetected();
+                boolean middellezer = midden.lijndetected();
+                boolean rechtselezer = rechts.lijndetected();
+
+                if(linkselezer && middellezer && rechtselezer){
+                    motor.rijden(50,50);
+                    driving = false;
+                    intermission = true;
+                    startintermission = cycle;
+                } else if(rechtselezer && middellezer){
+                    motor.rijden(snelheid - (snelheid / 2), snelheid);
+                } else if(linkselezer && middellezer){
+                    motor.rijden(snelheid, snelheid - (snelheid / 2));
+                } else if(rechtselezer){
+                    motor.rijden(snelheid - (snelheid / 3), snelheid);
+                } else if(linkselezer){
+                    motor.rijden(snelheid, snelheid - (snelheid / 3));
+                } else if(middellezer){
+                    motor.rijden(snelheid, snelheid);
+                }
+
             }
-            else if(rechtselezer && middellezer){
-                motor.rijden(snelheid - (snelheid / 2), snelheid);
+
+            if(intermission && (cycle%25 == 0)){
+                motor.rijden(50,50);
+                if((startintermission + 200) <  cycle){
+                    intermission = false;
+                    draaien = true;
+                    motor.rijden(30, -10);
+                    startturning = cycle;
+                }
             }
-            else if(linkselezer && middellezer){
-                motor.rijden(snelheid, snelheid - (snelheid / 2));
+
+
+            if(draaien && (cycle%25 == 0) && (startturning + 200) < cycle ){
+                boolean middenlezer = midden.lijndetected();
+                if (middenlezer){
+                    motor.rijden(0,0);
+                    draaien = false;
+                }
             }
-            else if(rechtselezer){
-                motor.rijden(snelheid - (snelheid / 3), snelheid);
-            }
-            else if(linkselezer){
-                motor.rijden(snelheid, snelheid - (snelheid / 3));
-            }
-            if(middellezer){
-                motor.rijden(snelheid, snelheid);
-            }
-            BoeBot.wait(20);
+
+            BoeBot.wait(1);
+            cycle++;
         }
-        for(int i = snelheid; i > 0; i--){
+
+
+
+
+        /*for(int i = snelheid; i > 0; i--){
             motor.rijden(i,i);
             BoeBot.wait(10);
         }
-        motor.rijden(30,-10);
-        boolean draaien = true;
-        BoeBot.wait(250);
-        while(draaien){
-            boolean middenlezer = midden.lijndetected();
-            if (middenlezer){
-                draaien = false;
-            }
-        }
-        motor.rijden(0,0);
+        */
     }
 
 }
