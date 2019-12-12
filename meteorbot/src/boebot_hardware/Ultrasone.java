@@ -2,8 +2,20 @@ package boebot_hardware;
 
 import TI.BoeBot;
 
-public class Ultrasone implements Runnable{
+public class Ultrasone implements Runnable {
     int trigpin, outputpin;
+    private static Ultrasone ultrasone;
+    public boolean objectDetected;
+
+    public static Ultrasone createUltrasone(int trigpin, int outputpin){
+        if(ultrasone == null){
+            ultrasone = new Ultrasone(trigpin,outputpin);
+            return ultrasone;
+        }
+        else{
+            return ultrasone;
+        }
+    }
 
     public Ultrasone(int trigpin, int outputpin) {
         this.trigpin = trigpin;
@@ -22,6 +34,18 @@ public class Ultrasone implements Runnable{
 
     @Override
     public void run() {
+        while(!objectDetected) {
+            BoeBot.digitalWrite(trigpin, true);
+            BoeBot.wait(1);
+            BoeBot.digitalWrite(trigpin, false);
+            int pulse = BoeBot.pulseIn(outputpin, true, 10000);
+            System.out.println(pulse);
+            System.out.println("detecting");
+            if (pulse / 58 < 3 && pulse >= 0) {
+                objectDetected = true;
+            }
+            BoeBot.wait(50);
+        }
 
     }
 }

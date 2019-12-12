@@ -1,10 +1,9 @@
 package Controller_package;
 
 import TI.BoeBot;
-import boebot_hardware.Lijnvolger;
-import boebot_hardware.Motor;
-import boebot_hardware.Point;
-import boebot_hardware.Ultrasone;
+import TI.Timer;
+import View.LedView;
+import boebot_hardware.*;
 
 import java.util.ArrayList;
 
@@ -18,6 +17,7 @@ public class RouteRijdenController implements Runnable {
     boolean intermission;
     boolean pinged = false;
     boolean trigpinaan = false;
+    LedView ledView;
     int pulse = 0;
     ArrayList<Point> route = new ArrayList<>();
 
@@ -36,7 +36,8 @@ public class RouteRijdenController implements Runnable {
         links = new Lijnvolger(0);
         midden = new Lijnvolger(1);
         rechts = new Lijnvolger(2);
-        ultrasone = new Ultrasone(9, 10);
+        ultrasone = new Ultrasone(10, 11);
+        ledView = new LedView();
 
     }
 
@@ -46,26 +47,22 @@ public class RouteRijdenController implements Runnable {
         route.add(new Point(0, 0));
         route.add(new Point(0, 1));
         route.add(new Point(1, 1));
-        route.add(new Point(1, 2));
+        route.add(new Point(1,2));
+        route.add(new Point(0,2));
+        route.add(new Point(0,1));
         checkifTurningDirection(route.get(0),route.get(1));
         boolean everythingisfine = true;
+        Thread ultrasSonethread = new Thread(ultrasone);
+        ultrasSonethread.start();
+        Thread ledThread = new Thread(ledView);
+        ledThread.start();
+        ledView.changeStatus(Status.DRIVING);
         while (everythingisfine) {
-            if (!trigpinaan && cycle % 1 == 0 && !pinged) {
-                trigpinaan = true;
-                ultrasone.trigger(trigpinaan);
-            } else if (trigpinaan) {
-                trigpinaan = false;
-                pinged = true;
-                pulse = ultrasone.trigger(trigpinaan);
-            }
-
-            if (pinged && cycle % 52 == 0) {
-                System.out.println(pulse /58);
-                if (pulse / 58 <= 3 && pulse / 58 != 0) {
-                    motor.rijden(0, 0);
+            if(cycle % 52 == 0){
+                if(ultrasone.objectDetected){
                     everythingisfine = false;
+                    ledView.changeStatus(Status.OBSTACLEFOUND);
                 }
-                pinged = false;
             }
 
             if (driving && (cycle % 10 == 0)) {
@@ -78,16 +75,22 @@ public class RouteRijdenController implements Runnable {
                     driving = false;
                     intermission = true;
                     startintermission = cycle;
+                    ledView.aanpasLedAan(true);
                 } else if (rechtselezer && middellezer) {
                     motor.rijden(snelheid - (snelheid / 3), snelheid);
+                    ledView.aanpasLedAan(false);
                 } else if (linkselezer && middellezer) {
                     motor.rijden(snelheid, snelheid - (snelheid / 3));
+                    ledView.aanpasLedAan(false);
                 } else if (rechtselezer) {
                     motor.rijden(snelheid - (snelheid / 4), snelheid);
+                    ledView.aanpasLedAan(false);
                 } else if (linkselezer) {
                     motor.rijden(snelheid, snelheid - (snelheid / 4));
+                    ledView.aanpasLedAan(false);
                 } else if (middellezer) {
                     motor.rijden(snelheid, snelheid);
+                    ledView.aanpasLedAan(true);
                 }
 
             }
@@ -97,16 +100,15 @@ public class RouteRijdenController implements Runnable {
                 if ((startintermission + 400) < cycle) {
                     intermission = false;
                     if (route.size() > 1) {
-                            if ((draaien = checkifTurningDirection(route.get(0), route.get(1))))
+                            if ((draaien = checkifTurningDirection(route.get(0), route.get(1)))) {
                                 startturning = cycle;
+                                ledView.changeStatus(Status.TURNING);
+                            }
 
                     }
                     else {
                         everythingisfine = false;
                     }
-
-
-
                     route.remove(0);
                 }
             }
@@ -119,6 +121,7 @@ public class RouteRijdenController implements Runnable {
                         draaien = false;
                         if(route.size() > 0) {
                             driving = true;
+                            ledView.changeStatus(Status.DRIVING);
                         }
                         else{
                             everythingisfine = false;
@@ -134,7 +137,7 @@ public class RouteRijdenController implements Runnable {
 
         }
         motor.rijden(0,0);
-
+        ledView.statusLedAan(true);
     }
 
     public boolean checkifTurningDirection(Point startingPoint, Point endingPoint) {
