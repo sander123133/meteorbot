@@ -9,6 +9,8 @@ public class Lijnvolger {
     }
 
     public boolean lijndetected(){
+       // int value = BoeBot.analogRead(inputPin);
+        //System.out.println(value);
         return BoeBot.analogRead(inputPin) > 400;
     }
 }

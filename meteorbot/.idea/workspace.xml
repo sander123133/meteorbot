@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f37f1a84-c5f1-4621-8d9c-cc04cacf9c9c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/boebot_hardware/Point.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller_package/RouteRijdenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller_package/RouteRijdenController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/boebot_hardware/Lijnvolger.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boebot_hardware/Lijnvolger.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/boebot_hardware/Ultrasone.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boebot_hardware/Ultrasone.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

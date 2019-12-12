@@ -2,7 +2,7 @@ package boebot_hardware;
 
 import TI.BoeBot;
 
-public class Ultrasone {
+public class Ultrasone implements Runnable{
     int trigpin, outputpin;
 
     public Ultrasone(int trigpin, int outputpin) {
@@ -14,10 +14,14 @@ public class Ultrasone {
         int pulse = 0;
         BoeBot.digitalWrite(trigpin, state);
         if(!state) {
-            pulse = BoeBot.pulseIn(10, true, 10000);
+            pulse = BoeBot.pulseIn(trigpin, true, 10000);
         }
         return pulse;
     }
 
 
+    @Override
+    public void run() {
+
+    }
 }
