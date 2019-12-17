@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f37f1a84-c5f1-4621-8d9c-cc04cacf9c9c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/View/LedView.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/boebot_hardware/Status.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller_package/RouteRijdenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller_package/RouteRijdenController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/RobotMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RobotMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/boebot_hardware/Ultrasone.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boebot_hardware/Ultrasone.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -26,12 +21,6 @@
   <component name="Git.Settings">
     <option name="ROOT_SYNC" value="DONT_SYNC" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
-  </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="180" />
-    <option name="y" value="265" />
-    <option name="width" value="1405" />
-    <option name="height" value="780" />
   </component>
   <component name="ProjectId" id="1T9IrPRfQX5ZHGQm2JpP5PvEYp6" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
