@@ -2,6 +2,7 @@
   <library name="BoeBotLib">
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/lib/BoeBotLib.jar!/" />
+      <root url="jar://D:/Downloads/mysql-connector-java-8.0.18/mysql-connector-java-8.0.18/mysql-connector-java-8.0.18.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
