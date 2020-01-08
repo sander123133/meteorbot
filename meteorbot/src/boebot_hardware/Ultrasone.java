@@ -17,6 +17,11 @@ public class Ultrasone implements Runnable {
         }
     }
 
+    /**
+     * creates an instance of Ultrasone
+     * @param trigpin is the port that will create a signal
+     * @param outputpin is the port that will read the distance
+     */
     public Ultrasone(int trigpin, int outputpin) {
         this.trigpin = trigpin;
         this.outputpin = outputpin;
@@ -33,6 +38,9 @@ public class Ultrasone implements Runnable {
 
 
     @Override
+    /**
+     * thread that periodically activates the ultrasone process
+     */
     public void run() {
         while(!objectDetected) {
             BoeBot.digitalWrite(trigpin, true);

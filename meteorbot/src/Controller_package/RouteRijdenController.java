@@ -1,7 +1,6 @@
 package Controller_package;
 
 import TI.BoeBot;
-import TI.Timer;
 import View.LedView;
 import boebot_hardware.*;
 
@@ -15,41 +14,40 @@ public class RouteRijdenController implements Runnable {
     boolean driving = true;
     boolean draaien = false;
     boolean intermission;
-    boolean pinged = false;
-    boolean trigpinaan = false;
     LedView ledView;
     int pulse = 0;
-    ArrayList<Point> route = new ArrayList<>();
+    ArrayList<Point> route;
 
     public enum Facing {
         NORTH, SOUTH, EAST, WEST
     }
 
-    Facing boebotFacing = Facing.NORTH;
+    static Facing boebotFacing = Facing.NORTH;
 
     int cycle = 0;
     int startturning = 0, startintermission = 0;
 
-
-    public RouteRijdenController() {
+    /**
+     * bouwd de controller
+     */
+    public RouteRijdenController(ArrayList<Point> route) {
         motor = Motor.createMotor();
+        this.route = route;
         links = new Lijnvolger(0);
         midden = new Lijnvolger(1);
         rechts = new Lijnvolger(2);
         ultrasone = new Ultrasone(10, 11);
         ledView = new LedView();
-
     }
 
-
+    /**
+     * Driving thread of the application, This thread will keep on running until it either finihes a route or
+     * detects an obstacle on the route.
+     * This method uses a cycle variable, this work the same way the timer class works with timeout
+     */
     @Override
     public void run() {
-        route.add(new Point(0, 0));
-        route.add(new Point(0, 1));
-        route.add(new Point(1, 1));
-        route.add(new Point(1,2));
-        route.add(new Point(0,2));
-        route.add(new Point(0,1));
+
         checkifTurningDirection(route.get(0),route.get(1));
         boolean everythingisfine = true;
         Thread ultrasSonethread = new Thread(ultrasone);
@@ -100,7 +98,8 @@ public class RouteRijdenController implements Runnable {
                 if ((startintermission + 400) < cycle) {
                     intermission = false;
                     if (route.size() > 1) {
-                            if ((draaien = checkifTurningDirection(route.get(0), route.get(1)))) {
+                        checkifTurningDirection(route.get(0), route.get(1));
+                            if (draaien) {
                                 startturning = cycle;
                                 ledView.changeStatus(Status.TURNING);
                             }
@@ -136,21 +135,31 @@ public class RouteRijdenController implements Runnable {
                 }
 
         }
+        ledThread.interrupt();
+        ultrasSonethread.interrupt();
         motor.rijden(0,0);
         ledView.statusLedAan(true);
+
+
     }
 
-    public boolean checkifTurningDirection(Point startingPoint, Point endingPoint) {
-        boolean turning = false;
+    /**
+     * this method will check which way the BoeBot needs to turn
+     * @param startingPoint the point the BoeBot is currently standing on
+     * @param endingPoint the point which the BoeBot will need to go to.
+     * this method will also change either the draaien variabel or the driving variabel. This will decide what the BoeBot
+     * will be doing next.
+     */
+    private void checkifTurningDirection(Point startingPoint, Point endingPoint) {
         if (startingPoint.getX() - endingPoint.getX() == -1) {
             switch (boebotFacing) {
                 case SOUTH:
                     motor.rijden(-10, 30);
-                    turning = true;
+                    draaien = true;
                     break;
                 case NORTH:
                     motor.rijden(30, -10);
-                    turning = true;
+                    draaien = true;
                     break;
                 case WEST:
                     motor.rijden(snelheid, snelheid);
@@ -162,11 +171,11 @@ public class RouteRijdenController implements Runnable {
             switch (boebotFacing) {
                 case SOUTH:
                     motor.rijden(30, -10);
-                    turning = true;
+                    draaien = true;
                     break;
                 case NORTH:
                     motor.rijden(-10, 30);
-                    turning = true;
+                    draaien = true;
                     break;
                 case EAST:
                     motor.rijden(snelheid, snelheid);
@@ -183,11 +192,11 @@ public class RouteRijdenController implements Runnable {
                     break;
                 case WEST:
                     motor.rijden(-10, 30);
-                    turning = true;
+                    draaien = true;
                     break;
                 case EAST:
                     motor.rijden(30, -10);
-                    turning = true;
+                    draaien = true;
                     break;
             }
             boebotFacing = Facing.NORTH;
@@ -199,16 +208,14 @@ public class RouteRijdenController implements Runnable {
                     break;
                 case WEST:
                     motor.rijden(30, -10);
-                    turning = true;
+                    draaien = true;
                     break;
                 case EAST:
                     motor.rijden(-10, 30);
-                    turning = true;
+                    draaien = true;
                     break;
             }
             boebotFacing = Facing.SOUTH;
         }
-        return turning;
-
     }
 }
