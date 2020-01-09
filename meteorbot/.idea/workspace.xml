@@ -2,15 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f37f1a84-c5f1-4621-8d9c-cc04cacf9c9c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/json_simple_1_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/json-simple-1.1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller_package/JsonToRouteController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/meteorbot.iml" beforeDir="false" afterPath="$PROJECT_DIR$/meteorbot.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller_package/RouteRijdenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller_package/RouteRijdenController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/RobotMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RobotMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View/LedView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/LedView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/boebot_hardware/Status.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boebot_hardware/Status.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/boebot_hardware/Ultrasone.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boebot_hardware/Ultrasone.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -42,7 +37,7 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1541164853887" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../A-star" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />

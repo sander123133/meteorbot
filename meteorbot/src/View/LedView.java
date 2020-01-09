@@ -28,14 +28,14 @@ public class LedView implements Runnable{
 
     @Override
     public void run() {
-        aanpasLedAan(true);
         statusLedAan(true);
+        aanpasLedAan(true);
         Timer timer = new Timer(100);
         timer.mark();
         boolean objectfound = false;
         while(!objectfound) {
             switch (state){
-                case DRIVING:
+               /* case DRIVING:
                     statusLedAan(false);
                     break;
                 case TURNING:
@@ -51,6 +51,13 @@ public class LedView implements Runnable{
                 case OBSTACLEFOUND:
                     statusLedAan(true);
                     objectfound = false;
+                    break; */
+                case CROSSPOINT:
+                    statusLedAan(false);
+                    aanpasLedAan(false);
+                    BoeBot.wait(250);
+                    statusLedAan(true);
+                    aanpasLedAan(true);
                     break;
             }
         }

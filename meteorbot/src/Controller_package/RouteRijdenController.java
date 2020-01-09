@@ -50,18 +50,18 @@ public class RouteRijdenController implements Runnable {
 
         checkifTurningDirection(route.get(0),route.get(1));
         boolean everythingisfine = true;
-        Thread ultrasSonethread = new Thread(ultrasone);
-        ultrasSonethread.start();
+       // Thread ultrasSonethread = new Thread(ultrasone);
+        //ultrasSonethread.start();
         Thread ledThread = new Thread(ledView);
         ledThread.start();
         ledView.changeStatus(Status.DRIVING);
         while (everythingisfine) {
-            if(cycle % 52 == 0){
+            /*if(cycle % 52 == 0){
                 if(ultrasone.objectDetected){
                     everythingisfine = false;
                     ledView.changeStatus(Status.OBSTACLEFOUND);
                 }
-            }
+            } */
 
             if (driving && (cycle % 10 == 0)) {
                 boolean linkselezer = links.lijndetected();
@@ -101,7 +101,7 @@ public class RouteRijdenController implements Runnable {
                         checkifTurningDirection(route.get(0), route.get(1));
                             if (draaien) {
                                 startturning = cycle;
-                                ledView.changeStatus(Status.TURNING);
+                                ledView.changeStatus(Status.CROSSPOINT);
                             }
 
                     }
@@ -116,7 +116,7 @@ public class RouteRijdenController implements Runnable {
                 if (draaien && (cycle % 25 == 0) && (startturning + 200) < cycle) {
                     boolean middenlezer = midden.lijndetected();
                     if (middenlezer) {
-                        motor.rijden(snelheid, snelheid);
+                        motor.rijden(snelheid , snelheid );
                         draaien = false;
                         if(route.size() > 0) {
                             driving = true;
@@ -136,7 +136,7 @@ public class RouteRijdenController implements Runnable {
 
         }
         ledThread.interrupt();
-        ultrasSonethread.interrupt();
+       // ultrasSonethread.interrupt();
         motor.rijden(0,0);
         ledView.statusLedAan(true);
 
@@ -184,7 +184,7 @@ public class RouteRijdenController implements Runnable {
             }
             boebotFacing = Facing.EAST;
 
-        } else if (startingPoint.getY() - endingPoint.getY() == -1) {
+        } else if (startingPoint.getY() - endingPoint.getY() == 1) {
             switch (boebotFacing) {
                 case NORTH:
                     motor.rijden(snelheid, snelheid);
@@ -200,7 +200,7 @@ public class RouteRijdenController implements Runnable {
                     break;
             }
             boebotFacing = Facing.NORTH;
-        }else if (startingPoint.getY() - endingPoint.getY() == 1) {
+        }else if (startingPoint.getY() - endingPoint.getY() == -1) {
             switch (boebotFacing) {
                 case SOUTH:
                     motor.rijden(snelheid, snelheid);
