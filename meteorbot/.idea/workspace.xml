@@ -4,8 +4,9 @@
     <list default="true" id="f37f1a84-c5f1-4621-8d9c-cc04cacf9c9c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller_package/RouteRijdenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller_package/RouteRijdenController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/RobotMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RobotMain.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/View/LedView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/LedView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/boebot_hardware/Status.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boebot_hardware/Status.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/boebot_hardware/Lijnvolger.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boebot_hardware/Lijnvolger.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

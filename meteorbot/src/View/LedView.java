@@ -35,7 +35,7 @@ public class LedView implements Runnable{
         boolean objectfound = false;
         while(!objectfound) {
             switch (state){
-               /* case DRIVING:
+               case DRIVING:
                     statusLedAan(false);
                     break;
                 case TURNING:
@@ -51,7 +51,7 @@ public class LedView implements Runnable{
                 case OBSTACLEFOUND:
                     statusLedAan(true);
                     objectfound = false;
-                    break; */
+                    break;
                 case CROSSPOINT:
                     statusLedAan(false);
                     aanpasLedAan(false);

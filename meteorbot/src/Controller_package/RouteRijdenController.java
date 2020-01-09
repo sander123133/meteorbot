@@ -73,18 +73,19 @@ public class RouteRijdenController implements Runnable {
                     driving = false;
                     intermission = true;
                     startintermission = cycle;
+                    System.out.println("kruispunt");
                     ledView.aanpasLedAan(true);
                 } else if (rechtselezer && middellezer) {
-                    motor.rijden(snelheid - (snelheid / 3), snelheid);
+                    motor.rijden(snelheid - (snelheid / 3), snelheid * 2);
                     ledView.aanpasLedAan(false);
                 } else if (linkselezer && middellezer) {
-                    motor.rijden(snelheid, snelheid - (snelheid / 3));
+                    motor.rijden(snelheid * 2, snelheid - (snelheid / 3));
                     ledView.aanpasLedAan(false);
                 } else if (rechtselezer) {
-                    motor.rijden(snelheid - (snelheid / 4), snelheid);
+                    motor.rijden(snelheid - (snelheid / 4), snelheid * 2);
                     ledView.aanpasLedAan(false);
                 } else if (linkselezer) {
-                    motor.rijden(snelheid, snelheid - (snelheid / 4));
+                    motor.rijden(snelheid * 2, snelheid - (snelheid / 4));
                     ledView.aanpasLedAan(false);
                 } else if (middellezer) {
                     motor.rijden(snelheid, snelheid);
@@ -95,7 +96,7 @@ public class RouteRijdenController implements Runnable {
 
             if (intermission && (cycle % 25 == 0)) {
                 motor.rijden(25, 25);
-                if ((startintermission + 400) < cycle) {
+                if ((startintermission + 750) < cycle) {
                     intermission = false;
                     if (route.size() > 1) {
                         checkifTurningDirection(route.get(0), route.get(1));
@@ -113,7 +114,7 @@ public class RouteRijdenController implements Runnable {
             }
 
 
-                if (draaien && (cycle % 25 == 0) && (startturning + 200) < cycle) {
+                if (draaien && (cycle % 25 == 0) && (startturning + 500) < cycle) {
                     boolean middenlezer = midden.lijndetected();
                     if (middenlezer) {
                         motor.rijden(snelheid , snelheid );

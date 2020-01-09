@@ -13,6 +13,10 @@ public class RobotMain {
             JsonToRouteController json = new JsonToRouteController();
             Thread thread = new Thread(new RouteRijdenController(json.route));
             thread.start();
+            Servo mijnServo = new Servo(12);
+            Servo mijnServo2 = new Servo(13);
+            mijnServo.update(1700);
+            mijnServo2.update(1300);
             while(thread.isAlive()){
                 BoeBot.wait(100);
             }
